@@ -1,3 +1,6 @@
+import json
+
+import asyncpg
 from aiohttp import web
 from sqlalchemy import select
 from aiohttp_jinja2 import template
@@ -10,8 +13,9 @@ async def index(request):
 
 async def post(request):
     async with request.app['db'].acquire() as conn:
-        query = select([db.post])#если отдные entries [db.post.c.id, db.post.c.title]
+        query = select([db.post.c.id, db.post.c.title])#если отдные entries [db.post.c.id, db.post.c.title]
         print(query)
         result = await conn.fetch(query)
+        result = list(map(lambda r: {"id": r.get("id"), "title": r.get("title")}, result))
 
-    return web.Response(body=str(result))
+    return web.json_response(result)

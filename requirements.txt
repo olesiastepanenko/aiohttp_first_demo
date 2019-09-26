@@ -7,3 +7,4 @@ pyyaml==5.1.2
 postgresql
 asyncpg
 asyncpgsa
+aiopg==1.0.0

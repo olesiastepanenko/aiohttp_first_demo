@@ -5,6 +5,7 @@ from .routes import setup_routes
 import asyncpgsa
 
 
+
 async def create_app(config:dict):
     app = web.Application()#создаем объект приложения
     #в словаре приложения создаем новый ключ config
@@ -19,7 +20,7 @@ async def create_app(config:dict):
     return app
 
 
-async def on_start(app):
+async def on_start(app):#движок DB
     config = app['config']#объект конфигурации находится внутри ключа config
     # dsn = construct_db_url(app['config']['database'])
     app['db'] = await asyncpgsa.create_pool(dsn=config['database_uri'])
