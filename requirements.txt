@@ -1,0 +1,9 @@
+pip
+aiohttp-jinja2
+aiohttp
+uvloop
+aioreloader
+pyyaml==5.1.2
+postgresql
+asyncpg
+asyncpgsa

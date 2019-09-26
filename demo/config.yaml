@@ -1,0 +1,4 @@
+ # Default configuration
+
+site_name: 'Dima, mi edem za Veronikoj??'
+database_uri: postgresql://127.0.0.1:5432/demo
