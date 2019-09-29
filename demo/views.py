@@ -15,7 +15,7 @@ async def index(request):
 @aiohttp_jinja2.template('detail.html')
 async def comments_detail(request):
     async with request.app['db'].acquire() as conn:
-        post_id = request.mach_info['post_id']
+        post_id = request.match_info['post_id']
         try:
             posts, comments = await db.get_posts(conn, post_id)
         except db.RecordNotFound as e:
@@ -25,23 +25,20 @@ async def comments_detail(request):
             'comments': comments
         }
 
+
 async def vote(request):
-    async with request.app['db'].acquire() as conn:# коннектимся к бд
+    async with request.app['db'].acquire() as conn:  # коннектимся к бд
         post_id = int(request.match_info['post_id'])
         data = await request.post()
         try:
-
-
-
-#         try:
-#             choice_id = int(data['choice'])
-#         except (KeyError, TypeError, ValueError) as e:
-#             raise web.HTTPBadRequest(
-#                 text='You have not specified choice value') from e
-#         try:
-#             await db.vote(conn, question_id, choice_id)
-#         except db.RecordNotFound as e:
-#             raise web.HTTPNotFound(text=str(e))
-#         router = request.app.router
-#         url = router['results'].url_for(question_id=str(question_id))
-#         return web.HTTPFound(location=url)
+            comment_id = int(data['comments'])
+        except (KeyError, TypeError, ValueError) as e:
+            raise web.HTTPBadRequest(
+                text='You have not specified comment value') from e
+        try:
+            await db.vote(conn, post_id, comment_id)
+        except db.RecordNotFound as e:
+            raise web.HTTPNotFound(text=str(e))
+        router = request.app.router
+        url = router['results'].url_for(post_id=str(post_id))
+        return web.HTTPFound(location=url)

@@ -51,15 +51,27 @@ async def close_pg(app):
 async def get_posts(conn, post_id):
     result = await conn.execute(  # пишем запрос в бд
         posts.select()
-            .where(posts.c.id == post_id))
+        .where(posts.c.id == post_id))
     post_record = await result.first()
     if not post_record:  # если записей нет
         msg = 'Post with ID: {} does not exist'
         raise RecordNotFound(msg.format(post_id))
     result = await conn.execute(
         comments.select()
-            .where(comments.c.post_id == post_id)
-            .order_by(comments.c.id))
-    comment_records = await result.fetchall()
-    return post_record, comment_records
+        .where(comments.c.post_id == post_id)
+        .order_by(comments.c.id))
+    comment_record = await result.fetchall()
+    return post_record, comment_record
+
+
+async def vote(conn, post_id, comment_id):
+    result = await conn.execute(
+        comments.update()
+        .returning(*comments.c)
+        .where(comments.c.id == comment_id)
+        .values(votes=comments.c.votes+1))
+    record = await result.fetchone()
+    if not record:
+        msg = "Post with id: {} or comment id: {} does not exists"
+        raise RecordNotFound(msg.format(post_id, comment_id))
 

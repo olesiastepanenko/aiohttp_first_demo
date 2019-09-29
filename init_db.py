@@ -17,12 +17,17 @@ def sample_data(engine):
     conn.execute(posts.insert(), [
         {'title': 'What\'s new?',
          'message': 'Hello world, it\'s how are you?',
-         'pub_date': '2019-09-29 10:17:49.629+02'}
+         'pub_date': '2019-09-29 10:17:49.629+02'},
+        {
+            'title': 'Second post',
+            'message': 'It is second HELLO',
+            'pub_date': '2019-09-30 12:17:49.629+02'}
     ])
     conn.execute(comments.insert(), [
-        {'comment_text': 'Not much', 'votes': 0, 'posts_id': 1},
-        {'comment_text': 'The sky', 'votes': 0, 'posts_id': 1},
-        {'comment_text': 'Just hacking again', 'votes': 0, 'posts_id': 1},
+        {'comment_text': 'Not much', 'votes': 0, 'post_id': 1},
+        {'comment_text': 'The sky', 'votes': 0, 'post_id': 1},
+        {'comment_text': 'Just hacking again', 'votes': 0, 'post_id': 1},
+        {'comment_text': 'Hu Hu 2', 'votes': 0, 'post_id': 2},
     ])
 
     conn.close()
