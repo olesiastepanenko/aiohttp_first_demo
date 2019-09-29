@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Demo</title>
-</head>
-<body>
-<h1>Hello!!! {{ site_name }}</h1>
-</body>
-</html>
+{% extends "base.html" %}
+
+
+{% set title = "Main" %}
+
+{% block content %}
+
+{% if posts_res %}
+    <ul>
+        {% for post in posts_res %}
+        <li>
+            <h1>{{ post.title }}</h1>
+            <a href="{{ url('comments_detail', post_id=post.id) }}">{{post.message}} </a>
+            <p>posted {{post.pub_date}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+
+{% endblock %}

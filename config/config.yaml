@@ -1,0 +1,15 @@
+ # Default configuration
+# aiohttp is configuration agnostic. It means the library does not require any specific configuration approach, and it does not have built-in support for any config schema.
+#then I will use yaml
+# Load yaml config from a list of predefined locations, e.g. ./config/app_cfg.yaml, /etc/app_cfg.yaml.
+#Keep the ability to override a config file by a command line parameter, e.g. ./run_app --config=/opt/config/app_cfg.yaml.
+app_name: 'test site'
+#database_uri: postgresql://127.0.0.1:5432/demo
+postgres:
+  database: lusi
+  user: lusi
+  password:
+  host: localhost
+  port: 5432
+  minsize: 1
+  maxsize: 5
