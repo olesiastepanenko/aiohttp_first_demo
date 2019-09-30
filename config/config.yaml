@@ -13,3 +13,10 @@ postgres:
   port: 5432
   minsize: 1
   maxsize: 1
+
+
+mongo:
+  host: 127.0.0.1
+  port: 27017
+  database: "motortwit"
+  max_pool_size: 5
