@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% set title = posts.title %}
+
+{% block content %}
+<ul>
+{% for comment in comments %}
+    <li>{{ comment.comment_text }} -- {{ comment.votes }} vote(s)</li>
+{% endfor %}
+</ul>
+
+<a href="{{ url('comments_detail', post_id=posts.id) }}">Vote again?</a>
+{% endblock %}
