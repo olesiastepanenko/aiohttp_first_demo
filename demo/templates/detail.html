@@ -1,22 +1,14 @@
 {% extends "base.html" %}
 
-{% set title = posts.title %}
 
 {% block content %}
-
-{% if error_message %}
-<p><strong>{{ error_message }}</strong></p>
-{% endif %}
-<form action="{{ url('vote', post_id=posts.id) }}" method="post">
-
-    {% for comment in comments %}
-
-    <input type="radio" name="vote" id="comment{{ loop.index }}" value="{{ comment.id }}"/>
-    <label for="comment{{ loop.index }}">{{ comment.comment_text }}</label><br/>
-
-    {% endfor %}
-    <input type="submit" value="Vote"/>
-</form>
-
+<h1>{{ current_post.title }}</h1>
+<div>
+    {{ current_post.post_text }}
+</div>
+</br>
+<div>
+    Created: {{ current_post.date_created }}
+</div>
 
 {% endblock %}

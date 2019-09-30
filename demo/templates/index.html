@@ -5,18 +5,16 @@
 
 {% block content %}
 
-{% if posts_res %}
-    <ul>
-        {% for post in posts_res %}
-        <li>
-            <h1>{{ post.title }}</h1>
-            <a href="{{ url('comments_detail', post_id=post.id) }}">{{post.message}} </a>
-            <p>posted {{post.pub_date}}</p>
-        </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No posts are available.</p>
-{% endif %}
+{% for post in posts %}
+        <li>{{ post.title }} | {{ post.post_text }}</li>
+<a href="{{ url('post_detail', post_id=post._id.__str__()) }}">{{post._id}}{{ post.title }} | {{ post.post_text }}</a>
+    {% endfor %}
 
+<form action="{{ url('add_post') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+    <label for="title">Add New Post</label>
+        <input id="title" name="title" type="text" value=""/>
+    <label for="post_text">Add New Post</label>
+        <input id="post_text" name="post_text" type="text" value=""/>
+        <input type="submit" value="Send"/>
+    </form>
 {% endblock %}
